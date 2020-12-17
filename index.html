@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+
+    </head>
+
+    <title> Pokemon Learnset Resource </title>
+
+    <body>
+
+    <h1> Pokemon Learnsets by Generation </h1>
+
+    <p> What Pokemon do you want the learnset for? </p>
+    <input type="text" id="pokemon"> <!-- input pokemon's name -->
+
+    <p> What generation? </p>
+    <input type="text" id="generation"> <!-- generation needed for the learnset -->
+
+    <!-- give pokemon's name to the js script portion-->
+    <button id="button_pokemon" onclick="getPokemon()">enter Pokemon</button>
+    <button id="button_generation" onclick="getGeneration()">enter generation</button>
+
+    <p id="output_pokemon"></p>
+    <p id="output_generation"></p>
+
+    <!-- w3schools.com -->
+    <script>
+        function getPokemon() {
+            var pokemon = document.getElementById("pokemon").value;
+            document.getElementById("output_pokemon").textContent = pokemon;
+            return pokemon;
+    }
+    getPokemon();
+    </script>
+
+    <p> pokemon </p>
+
+    <script>
+        function getGeneration() {
+            var generation = document.getElementById("generation").value;
+            document.getElementById("output_generation").textContent = generation;
+            return generation
+    }
+    getGeneration();
+    </script>
+
+    <!-- if Enter is pressed in the text box, obtain the output value -->
+    <!-- https://www.w3schools.com/howto/howto_js_trigger_button_enter.asp -->
+    <script>
+        // Get the input field
+        var input = document.getElementById("pokemon");
+
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener("keyup", function(event) {
+
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("button_pokemon").click();
+            }
+        });
+    </script>
+
+    <!-- same script for generation textbox -->
+    <script>
+        // Get the input field
+        var input = document.getElementById("generation");
+
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener("keyup", function(event) {
+
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("button_generation").click();
+            }
+        });
+    </script>
+
+    <!-- put pokemon keys and pokedex num values as js dictionary here -->
+
+    <p id="output_url"> hello </p>
+
+    <button onclick=redirectPage()> redirect </button>
+    <script>
+        function redirectPage() {
+            var base_url = "https://pokemondb.net/pokedex/";
+
+            pokemon = getPokemon().toLowerCase();
+            generation = String(getGeneration());
+
+            pokemon_url = base_url.concat(pokemon);
+            pokemon_url = pokemon_url.concat("/moves/")
+
+            whole_url = pokemon_url.concat(generation);
+            document.getElementById("output_url").textContent = whole_url;
+
+            window.location.href = whole_url;
+        }
+
+    </script>
+
+
+    </body>
+
+
+</html>
