@@ -44,6 +44,26 @@
 
     <br>
 
+    <!-- ask if the user needs a learnset for a specific generation or just wants general info
+         if general info, point to veekun
+         else, point to pokemondb
+    -->
+
+    <!-- create radio buttons to decide
+        the name needs to be mutually exclusive so that the radio buttons are mutually exclusive
+         https://stackoverflow.com/questions/3216512/how-can-i-create-mutually-exclusive-radio-buttons-with-different-names
+         -->
+    <p>Pokedex entry or specific generation learnset?</p>
+    <input type="radio" name="functionality" id="pokedex" value="Pokedex entry">
+    <label for="pokedex">Pokedex entry</label><br>
+    <input type="radio" name="functionality" id="learnset" value="specific learnset">
+    <label for="learnset">specific learnset</label><br>
+
+    <!-- if pokedex indicated, simply redirect to veekun
+        ask what generation only if it's indicated
+        https://stackoverflow.com/questions/35202952/text-box-to-appear-when-a-radio-button-is-selected
+        -->
+
     <p> What generation? </p>
     <input type="text" id="generation"> <!-- generation needed for the learnset -->
 
