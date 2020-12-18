@@ -1,0 +1,7 @@
+#dvtext {
+    display: none;
+}
+
+#learnset:checked ~ #dvtext {
+    display: block;
+}

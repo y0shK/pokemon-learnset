@@ -6,6 +6,8 @@
 
         <meta charset="UTF-8">
 
+        <link rel="stylesheet" href="style.css">
+
     </head>
 
     <title> Pokemon Learnset Resource </title>
@@ -59,17 +61,20 @@
     <input type="radio" name="functionality" id="learnset" value="specific learnset">
     <label for="learnset">specific learnset</label><br>
 
+    <br>
+
     <!-- if pokedex indicated, simply redirect to veekun
         ask what generation only if it's indicated
         https://stackoverflow.com/questions/35202952/text-box-to-appear-when-a-radio-button-is-selected
         -->
 
-    <p> What generation? </p>
-    <input type="text" id="generation"> <!-- generation needed for the learnset -->
-
-    <!-- give pokemon's name to the js script portion-->
-    <button id="button_pokemon" onclick="getPokemon()"> enter Pokemon </button>
-    <button id="button_generation" onclick="getGeneration()"> enter generation </button>
+    <!-- take care of generation only if indicated
+        do so with a text box that appears only when the generation radio button is checked
+         https://stackoverflow.com/questions/35202952/text-box-to-appear-when-a-radio-button-is-selected -->
+    <div id="dvtext">
+        Which generation?
+        <input type="text" id="generation">
+    </div>
 
     <p id="output_pokemon"></p>
     <p id="output_generation"></p>
@@ -137,11 +142,17 @@
     <!-- take the base pokemondb link and concat a new url depending on given pokemon and generation -->
     <script>
         function redirectPage() {
-            // getPokemon() returns false if string is empty and true if string is not empty
-            // similarly, getGeneration() returns false if no integer is provided (or 0)
-            // only if the values are not empty will we proceed with page redirection
+            // if getPokemon() will be false if string is empty and true if string is not empty
+            // similarly, if getGeneration() will be false if no integer is provided (or 0)
 
-            if (getPokemon() && getGeneration()) { // the string is not empty
+            // if pokemon and generation are provided, then link to pokemondb
+            // if pokemon and pokedex entry are provided, then link to veekun
+
+            var pokedexEntryBool = document.getElementById("pokedex").checked;
+            var learnsetBool = document.getElementById("learnset").checked;
+
+            // if pokemon provided, learnset button checked, and generation provided
+            if (getPokemon() && learnsetBool && getGeneration()) { // pokemondb
 
                 var base_url = "https://pokemondb.net/pokedex/";
 
@@ -153,6 +164,16 @@
 
                 whole_url = pokemon_url.concat(generation);
 
+                window.location.href = whole_url;
+            }
+            // if pokemon provided and pokedex entry checked
+            else if (getPokemon() && pokedexEntryBool) { // veekun
+
+                var base_url = "https://veekun.com/dex/pokemon/"
+
+                pokemon = getPokemon().toLowerCase();
+
+                whole_url = base_url.concat(pokemon);
                 window.location.href = whole_url;
             }
         }
