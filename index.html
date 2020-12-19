@@ -139,83 +139,110 @@
 
     <p id="testPokemon"></p>
 
+    <p id="reminder"></p>
+
+    <script>
+        function convertRomanNumeral(x) {
+            if (x == 'i') {
+                return 1;
+            }
+            else if (x == 'ii') {
+                return 2;
+            }
+            else if (x == 'iii') {
+                return 3;
+            }
+            else if (x == 'iv') {
+                return 4;
+            }
+            else if (x == 'v') {
+                return 5;
+            }
+            else if (x == 'vi') {
+                return 6;
+            }
+            else if (x == 'vii') {
+                return 7;
+            }
+            else if (x == 'viii') {
+                return 8;
+            }
+        }
+    </script>
+
     <!-- take the base pokemondb link and concat a new url depending on given pokemon and generation -->
     <script>
         function redirectPage() {
-            // (if pokemon) is false if string is empty and true if string is not empty
-            // similarly, (if generation) will be false if no integer is provided (or 0)
+            // if getPokemon() will be false if string is empty and true if string is not empty
+            // similarly, if getGeneration() will be false if no integer is provided (or 0)
 
             pokemon = getPokemon()
             generation = getGeneration()
 
-            // error checking for pokemon and generation
-
-            var pokemonIsString;
-            var generationIsIntForm;
-
-            // check if pokemon provided is a string - this is the only acceptable form
-            // however, it needs to be a genuine string, not just an integer of type Str (e.g. 'two', not '2')
-            // do this by checking whether the pokemon input can be parsed to int - if it can, it's not appropriate input
-
-            // https://stackoverflow.com/questions/6466709/check-whether-a-textbox-value-is-numeric-or-string
-            if (isNaN(parseInt(pokemon))) { // 'two' cannot be parsed to integer
-                pokemonIsString = true;
-            }
-            else { // '2' can be parsed to integer - this is not the input we want
-                pokemonIsString = false;
-            }
-
-            // check if generation provided is either an integer (e.g. 4) or roman numeral ('IV')
-            let generationRomanNums = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii'];
-            let generationNums = [1, 2, 3, 4, 5, 6, 7, 8];
-
-            if (Number.isInteger(generation) && generation in generationNums) {
-                generationIsIntForm = true;
-            }
-            else if (generation in generationRomanNums) { // if the roman numeral is provided
-
-                generationIsIntForm = true;
-
-                for (i = 0; i < generationRomanNums.length; i++) { // iterate through the roman numeral array
-                    if (generation.toLowerCase() == generationRomanNums[i]) { // if we find a match
-                        generation = String(generationNums[i]); // redefine generation as integer, but as type String
-                        break;
-                    }
-                }
-
-            }
-            //else { // generation != 1, 2, ... and generation != 'i', 'ii', ..., so it's not integer form
-              //  generationIsIntForm = false;
-            //}
-
             // if pokemon and generation are provided, then link to pokemondb
-            // if pokemon and pokedex entry are provided, then it depends
-                // link to veekun for gen 1-7
-                // link to marriland pokedex for gen 8
+            // if pokemon and pokedex entry are provided, then link to veekun
 
             var pokedexEntryBool = document.getElementById("pokedex").checked;
             var learnsetBool = document.getElementById("learnset").checked;
 
-            // flowchart for different functionality
+            // error checking - make sure that pokemon input is a string and generation is integer or roman numeral
+
+            var pokemonIsString;
+            var generationIsNum;
+
+            // pokemon input
+            if (isNaN(parseInt(pokemon))) {
+                pokemonIsString = true; // strings that can't be parsed to ints are actual strings - 'two', not '2'
+            }
+            else {
+                pokemonIsString = false; // if the string can be parsed, we don't want that output
+            }
+
+            // generation input
+            let generationNums = [1, 2, 3, 4, 5, 6, 7, 8]
+            var romanNums = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii']
+            if (generation in generationNums) {
+                generationIsNum = true;
+            }
+            // pythonic "in" only works for ints, not for strings
+            // https://www.w3schools.com/jsref/jsref_includes_array.asp - for strings
+            else if (romanNums.includes(generation.toLowerCase())) {
+                generationIsNum = true;
+
+                //document.getElementById("testPokemon").textContent = "Please enter a Pokemonzzz!";
+            }
+            else {
+                generationIsNum = false;
+            }
+
+            // for all branches, pokemon needs to be a string and generation needs to be a number
+
 
             // if pokemon provided, learnset button checked, and generation provided
-            // & error checking
-            if (pokemonIsString && generationIsIntForm && learnsetBool) { // pokemondb
+            if (pokemonIsString && generationIsNum && getPokemon() && learnsetBool && getGeneration()) { // pokemondb
 
                 var base_url = "https://pokemondb.net/pokedex/";
 
-                pokemon = pokemon.toLowerCase();
-                generation = String(generation);
+                pokemon = getPokemon().toLowerCase();
+                generation = getGeneration();
+
+                // generation can be an integer (e.g. 4) or a string (e.g. IV) and we need a consistent output
+                if (romanNums.includes(generation.toLowerCase())) { // roman numeral
+                    generation = String(convertRomanNumeral(generation.toLowerCase()));
+                }
+                else if (generation in generationNums) {
+                    generation = String(getGeneration());
+                }
 
                 pokemon_url = base_url.concat(pokemon);
-                pokemon_url = pokemon_url.concat("/moves/");
+                pokemon_url = pokemon_url.concat("/moves/")
 
                 whole_url = pokemon_url.concat(generation);
 
                 window.location.href = whole_url;
             }
             // if pokemon provided and pokedex entry checked
-            else if (pokemon && pokedexEntryBool) { // veekun
+            else if (pokemonIsString && generationIsNum && getPokemon() && pokedexEntryBool) { // veekun
 
                 var base_url = "https://veekun.com/dex/pokemon/"
 
@@ -223,6 +250,10 @@
 
                 whole_url = base_url.concat(pokemon);
                 window.location.href = whole_url;
+            }
+            // pokemon is not a string or generation is not a number or both - wait for proper input
+            else {
+                document.getElementById("reminder").textContent = "Please enter either a Pokemon or generation as a number or Roman numeral!";
             }
         }
 
