@@ -92,6 +92,7 @@
 
     <script>
         function getGeneration() {
+            // assume that generation will be a string for uniformity
             var generation = document.getElementById("generation").value;
             return generation
     }
@@ -177,7 +178,7 @@
             // similarly, if getGeneration() will be false if no integer is provided (or 0)
 
             pokemon = getPokemon()
-            generation = getGeneration()
+            generation = String(getGeneration())
 
             // if pokemon and generation are provided, then link to pokemondb
             // if pokemon and pokedex entry are provided, then link to veekun
@@ -188,7 +189,7 @@
             // error checking - make sure that pokemon input is a string and generation is integer or roman numeral
 
             var pokemonIsString;
-            var generationIsNum;
+            var generationIsStringNumber;
 
             // pokemon input
             if (isNaN(parseInt(pokemon))) {
@@ -199,39 +200,34 @@
             }
 
             // generation input
-            let generationNums = [1, 2, 3, 4, 5, 6, 7, 8]
+            var generationNums = ['1', '2', '3', '4', '5', '6', '7', '8'] // assume string, makes url concat easier
             var romanNums = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii']
-            if (generation in generationNums) {
-                generationIsNum = true;
+
+            if (generationNums.includes(generation)) { // is the provided string generation in string number form?
+                generationIsStringNumber = true;
             }
             // pythonic "in" only works for ints, not for strings
             // https://www.w3schools.com/jsref/jsref_includes_array.asp - for strings
             else if (romanNums.includes(generation.toLowerCase())) {
-                generationIsNum = true;
-
-                //document.getElementById("testPokemon").textContent = "Please enter a Pokemonzzz!";
+                generationIsStringNumber = true;
             }
             else {
-                generationIsNum = false;
+                generationIsStringNumber = false;
             }
 
-            // for all branches, pokemon needs to be a string and generation needs to be a number
+            // for all branches, pokemon needs to be a string and generation needs to be a number (e.g. '1' or 'I')
 
-
-            // if pokemon provided, learnset button checked, and generation provided
-            if (pokemonIsString && generationIsNum && getPokemon() && learnsetBool && getGeneration()) { // pokemondb
+            // if the pokemon is an appropriate string, the generation can be converted to a valid string, and the learnset is marked
+            if (pokemonIsString && generationIsStringNumber && learnsetBool) { // pokemondb
 
                 var base_url = "https://pokemondb.net/pokedex/";
 
                 pokemon = getPokemon().toLowerCase();
-                generation = getGeneration();
+                generation = getGeneration(); // automatically string dtype
 
                 // generation can be an integer (e.g. 4) or a string (e.g. IV) and we need a consistent output
                 if (romanNums.includes(generation.toLowerCase())) { // roman numeral
-                    generation = String(convertRomanNumeral(generation.toLowerCase()));
-                }
-                else if (generation in generationNums) {
-                    generation = String(getGeneration());
+                    generation = String(convertRomanNumeral(generation.toLowerCase())); // numeral conversion is int - needs further String conversion
                 }
 
                 pokemon_url = base_url.concat(pokemon);
@@ -241,8 +237,9 @@
 
                 window.location.href = whole_url;
             }
-            // if pokemon provided and pokedex entry checked
-            else if (pokemonIsString && generationIsNum && getPokemon() && pokedexEntryBool) { // veekun
+            // if pokemon is the appropriate string and the pokedex is marked
+            // whether generation is provided or not is irrelevant
+            else if (pokemonIsString && pokedexEntryBool) { // veekun
 
                 var base_url = "https://veekun.com/dex/pokemon/"
 
