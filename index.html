@@ -142,32 +142,80 @@
     <!-- take the base pokemondb link and concat a new url depending on given pokemon and generation -->
     <script>
         function redirectPage() {
-            // if getPokemon() will be false if string is empty and true if string is not empty
-            // similarly, if getGeneration() will be false if no integer is provided (or 0)
+            // (if pokemon) is false if string is empty and true if string is not empty
+            // similarly, (if generation) will be false if no integer is provided (or 0)
+
+            pokemon = getPokemon()
+            generation = getGeneration()
+
+            // error checking for pokemon and generation
+
+            var pokemonIsString;
+            var generationIsIntForm;
+
+            // check if pokemon provided is a string - this is the only acceptable form
+            // however, it needs to be a genuine string, not just an integer of type Str (e.g. 'two', not '2')
+            // do this by checking whether the pokemon input can be parsed to int - if it can, it's not appropriate input
+
+            // https://stackoverflow.com/questions/6466709/check-whether-a-textbox-value-is-numeric-or-string
+            if (isNaN(parseInt(pokemon))) { // 'two' cannot be parsed to integer
+                pokemonIsString = true;
+            }
+            else { // '2' can be parsed to integer - this is not the input we want
+                pokemonIsString = false;
+            }
+
+            // check if generation provided is either an integer (e.g. 4) or roman numeral ('IV')
+            let generationRomanNums = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii'];
+            let generationNums = [1, 2, 3, 4, 5, 6, 7, 8];
+
+            if (Number.isInteger(generation) && generation in generationNums) {
+                generationIsIntForm = true;
+            }
+            else if (generation in generationRomanNums) { // if the roman numeral is provided
+
+                generationIsIntForm = true;
+
+                for (i = 0; i < generationRomanNums.length; i++) { // iterate through the roman numeral array
+                    if (generation.toLowerCase() == generationRomanNums[i]) { // if we find a match
+                        generation = String(generationNums[i]); // redefine generation as integer, but as type String
+                        break;
+                    }
+                }
+
+            }
+            //else { // generation != 1, 2, ... and generation != 'i', 'ii', ..., so it's not integer form
+              //  generationIsIntForm = false;
+            //}
 
             // if pokemon and generation are provided, then link to pokemondb
-            // if pokemon and pokedex entry are provided, then link to veekun
+            // if pokemon and pokedex entry are provided, then it depends
+                // link to veekun for gen 1-7
+                // link to marriland pokedex for gen 8
 
             var pokedexEntryBool = document.getElementById("pokedex").checked;
             var learnsetBool = document.getElementById("learnset").checked;
 
+            // flowchart for different functionality
+
             // if pokemon provided, learnset button checked, and generation provided
-            if (getPokemon() && learnsetBool && getGeneration()) { // pokemondb
+            // & error checking
+            if (pokemonIsString && generationIsIntForm && learnsetBool) { // pokemondb
 
                 var base_url = "https://pokemondb.net/pokedex/";
 
-                pokemon = getPokemon().toLowerCase();
-                generation = String(getGeneration());
+                pokemon = pokemon.toLowerCase();
+                generation = String(generation);
 
                 pokemon_url = base_url.concat(pokemon);
-                pokemon_url = pokemon_url.concat("/moves/")
+                pokemon_url = pokemon_url.concat("/moves/");
 
                 whole_url = pokemon_url.concat(generation);
 
                 window.location.href = whole_url;
             }
             // if pokemon provided and pokedex entry checked
-            else if (getPokemon() && pokedexEntryBool) { // veekun
+            else if (pokemon && pokedexEntryBool) { // veekun
 
                 var base_url = "https://veekun.com/dex/pokemon/"
 
