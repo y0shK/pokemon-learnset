@@ -37,14 +37,9 @@
             if (!pokemon_provided) {
                 document.getElementById("userPrompt").textContent = "Please enter a Pokemon!";
             }
-            //else {
-              //  document.getElementById("userPrompt").textContent = pokemon_provided;
-            //}
 
     }
     </script>
-
-    <br>
 
     <!-- ask if the user needs a learnset for a specific generation or just wants general info
          if general info, point to veekun
@@ -56,9 +51,9 @@
          https://stackoverflow.com/questions/3216512/how-can-i-create-mutually-exclusive-radio-buttons-with-different-names
          -->
     <p>Pokedex entry or specific generation learnset?</p>
-    <input type="radio" name="functionality" id="pokedex" value="Pokedex entry">
+    <input type="radio" name="functionality" id="pokedex">
     <label for="pokedex">Pokedex entry</label><br>
-    <input type="radio" name="functionality" id="learnset" value="specific learnset">
+    <input type="radio" name="functionality" id="learnset">
     <label for="learnset">specific learnset</label><br>
 
     <br>
@@ -71,9 +66,21 @@
     <!-- take care of generation only if indicated
         do so with a text box that appears only when the generation radio button is checked
          https://stackoverflow.com/questions/35202952/text-box-to-appear-when-a-radio-button-is-selected -->
-    <div id="dvtext">
+    <div id="generation_prompt">
+        <br>
         Which generation?
+        <br><br>
         <input type="text" id="generation">
+    </div>
+
+    <div id="dex_prompt">
+        National or Galar Pokedex?<br><br>
+        <input type="radio" name="dexChoice" id="national">
+        <label for="national">National</label><br>
+
+        <input type="radio" name="dexChoice" id="galar">
+        <label for="galar">Galar</label><br>
+
     </div>
 
     <p id="output_pokemon"></p>
@@ -97,6 +104,22 @@
             return generation
     }
     getGeneration();
+    </script>
+
+    <!-- create a function to get the preferred pokedex type-->
+    <script>
+        function getDexType() {
+            // get either national or galar dex
+            var nationalDexChosen = document.getElementById("national").checked;
+            var galarDexChosen = document.getElementById("galar").checked;
+
+            if (nationalDexChosen) {
+                return "national"
+            }
+            else if (galarDexChosen) {
+                return "galar"
+            }
+        }
     </script>
 
     <!-- if Enter is pressed in the text box, obtain the output value -->
@@ -235,18 +258,24 @@
 
                 whole_url = pokemon_url.concat(generation);
 
-                window.location.href = whole_url;
+                window.open(whole_url, '_blank');
             }
             // if pokemon is the appropriate string and the pokedex is marked
             // whether generation is provided or not is irrelevant
-            else if (pokemonIsString && pokedexEntryBool) { // veekun
+            else if (pokemonIsString && pokedexEntryBool) { // veekun or marriland, depending on national or galar
 
-                var base_url = "https://veekun.com/dex/pokemon/"
+                if (getDexType() == "national") {
+                    var base_url = "https://veekun.com/dex/pokemon/"
+                }
+                else if (getDexType() == "galar") {
+                    var base_url = "https://marriland.com/pokedex/"
+                }
 
                 pokemon = getPokemon().toLowerCase();
 
                 whole_url = base_url.concat(pokemon);
-                window.location.href = whole_url;
+                // change from window.location.href = whole_url; to window.open() - opens up a new tab
+                window.open(whole_url, '_blank');
             }
             // pokemon is not a string or generation is not a number or both - wait for proper input
             else {
