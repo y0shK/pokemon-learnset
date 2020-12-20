@@ -20,7 +20,7 @@
 
     <!-- make sure that there is some pokemon entered, because it's necessary for the app functionality-->
     <!-- ask if the user cares about a specific generation
-    if yes, direct to the specific generation, else direct to general page -->
+    if yes, direct to the specific generation, else direct to general pokedex page -->
     <!-- on keyup, if the text box is blank, then ensure that the user provides proper input -->
 
     <input type="text" id="pokemon" onkeyup="verifyPokemon()"> <!-- input pokemon's name -->
@@ -42,7 +42,7 @@
     </script>
 
     <!-- ask if the user needs a learnset for a specific generation or just wants general info
-         if general info, point to veekun
+         if general info, point to veekun for gen 1-7 or marriland for gen 8
          else, point to pokemondb
     -->
 
@@ -58,7 +58,7 @@
 
     <br>
 
-    <!-- if pokedex indicated, simply redirect to veekun
+    <!-- if pokedex indicated, simply redirect to veekun/marriland
         ask what generation only if it's indicated
         https://stackoverflow.com/questions/35202952/text-box-to-appear-when-a-radio-button-is-selected
         -->
@@ -67,7 +67,6 @@
         do so with a text box that appears only when the generation radio button is checked
          https://stackoverflow.com/questions/35202952/text-box-to-appear-when-a-radio-button-is-selected -->
     <div id="generation_prompt">
-        <br>
         Which generation?
         <br><br>
         <input type="text" id="generation">
@@ -159,9 +158,7 @@
         });
     </script>
 
-    <button onclick=redirectPage()> redirect </button>
-
-    <p id="testPokemon"></p>
+    <button onclick=redirectPage()> Get Pokemon info </button>
 
     <p id="reminder"></p>
 

@@ -1,7 +1,15 @@
-#dvtext {
+#generation_prompt {
     display: none;
 }
 
-#learnset:checked ~ #dvtext {
+#learnset:checked ~ #generation_prompt {
+    display: block;
+}
+
+#dex_prompt {
+    display: none;
+}
+
+#pokedex:checked ~ #dex_prompt {
     display: block;
 }
