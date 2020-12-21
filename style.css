@@ -1,5 +1,6 @@
 #generation_prompt {
     display: none;
+    float: left;
 }
 
 #learnset:checked ~ #generation_prompt {
@@ -8,8 +9,51 @@
 
 #dex_prompt {
     display: none;
+    float: left;
 }
 
 #pokedex:checked ~ #dex_prompt {
     display: block;
 }
+
+body {
+    background-image: url(images/pokemon/mudkip.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+
+h1 {
+    font-family: 'Cardo', serif;
+    font-size: 36px;
+    text-align: center;
+}
+
+p {
+    font-family: 'Cardo', serif;
+    text-align: left;
+}
+
+input {
+    font-family: 'Cardo', serif;
+    text-align: left;
+    float: left;
+
+}
+
+label {
+    font-family: 'Cardo', serif;
+    float: left;
+}
+
+div {
+    font-family: 'Cardo', serif;
+    float: left;
+}
+
+button {
+    font-family: 'Cardo', serif;
+    float: left;
+
+}
+

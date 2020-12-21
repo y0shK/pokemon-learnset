@@ -8,6 +8,10 @@
 
         <link rel="stylesheet" href="style.css">
 
+        <!-- Cardo family font, Cardo and Cardo bold -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap" rel="stylesheet">
+
     </head>
 
     <title> Pokemon Learnset Resource </title>
@@ -25,6 +29,7 @@
 
     <input type="text" id="pokemon" onkeyup="verifyPokemon()"> <!-- input pokemon's name -->
 
+    <br>
     <p id="userPrompt"> <br> </p>
 
     <!--execute prompt for better input
@@ -52,11 +57,11 @@
          -->
     <p>Pokedex entry or specific generation learnset?</p>
     <input type="radio" name="functionality" id="pokedex">
-    <label for="pokedex">Pokedex entry</label><br>
+    <label for="pokedex">Pokedex entry</label>
     <input type="radio" name="functionality" id="learnset">
-    <label for="learnset">specific learnset</label><br>
+    <label for="learnset">specific learnset</label>
 
-    <br>
+    <br><br>
 
     <!-- if pokedex indicated, simply redirect to veekun/marriland
         ask what generation only if it's indicated
@@ -67,13 +72,12 @@
         do so with a text box that appears only when the generation radio button is checked
          https://stackoverflow.com/questions/35202952/text-box-to-appear-when-a-radio-button-is-selected -->
     <div id="generation_prompt">
-        Which generation?
-        <br><br>
+        <p>Which generation?</p>
         <input type="text" id="generation">
     </div>
 
     <div id="dex_prompt">
-        National or Galar Pokedex?<br><br>
+        <p>National or Galar Pokedex?</p>
         <input type="radio" name="dexChoice" id="national">
         <label for="national">National</label><br>
 
@@ -158,6 +162,7 @@
         });
     </script>
 
+    <br><br><br><br><br><br>
     <button onclick=redirectPage()> Get Pokemon info </button>
 
     <p id="reminder"></p>
@@ -281,6 +286,9 @@
         }
 
     </script>
+
+    <!-- add random pokemon image from pokemonwallpapers repo-->
+
 
     </body>
 
