@@ -37,7 +37,6 @@
     <script>
         function verifyPokemon() {
             var pokemon_provided = document.getElementById("pokemon").value;
-            //document.getElementById("userPrompt").textContent = pokemon_provided;
             if (!pokemon_provided) {
                 document.getElementById("userPrompt").textContent = "Please enter a Pokemon!";
             }
@@ -70,7 +69,7 @@
          https://stackoverflow.com/questions/35202952/text-box-to-appear-when-a-radio-button-is-selected -->
     <div id="generation_prompt">
         <p id="generation_p">Which generation?</p>
-        <input type="text" id="generation" size=15>
+        <input type="text" id="generation">
     </div>
 
     <div id="dex_prompt">
