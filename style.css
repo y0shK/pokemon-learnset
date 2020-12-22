@@ -1,65 +1,105 @@
 #generation_prompt {
     display: none;
     float: left;
+    font-family: 'Cardo', serif;
 }
 
 #learnset:checked ~ #generation_prompt {
     display: block;
+    float: left;
+    font-family: 'Cardo', serif;
 }
 
 #dex_prompt {
     display: none;
     float: left;
+    font-family: 'Cardo', serif;
 }
 
 #pokedex:checked ~ #dex_prompt {
     display: block;
+    float: left;
+    font-family: 'Cardo', serif;
 }
+
+#pokedex {
+    position: fixed;
+    float: left;
+    left: 0.25em;
+}
+
+#pokedexLabel {
+    float: left;
+    position: fixed;
+    left: 2em;
+    font-family: 'Cardo', serif;
+
+}
+
+#learnset {
+    position: fixed;
+    float: left;
+    left: 10.5em;
+
+}
+
+#learnsetLabel {
+    position: fixed;
+    float: left;
+    left: 10.6em;
+    font-family: 'Cardo', serif;
+}
+
+#dex_p {
+    margin-top: 3em;
+    font-family: 'Cardo', serif;
+}
+
+#generation_p {
+    margin-top: 3em;
+    font-family: 'Cardo', serif;
+}
+
+
 
 #attribution {
     position: fixed;
     bottom: 0;
+    font-size: 12px;
+    font-family: 'Cardo', serif;
+}
+
+#pokemonQuery {
+    margin-top: 2em;
+    font-family: 'Cardo', serif;
+}
+
+#pokemon {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    font-family: 'Cardo', serif;
 }
 
 body {
-    margin-top: 32px;
-    margin-bottom: 32px;
+    margin-top: 2em;
+    margin-bottom: 2em;
     background-image: url(pikachu.jpg);
     background-size: cover;
-    background-position: center;
+    background-position: left;
+    width: 216px;
+    height: 384px;
+    font-family: 'Cardo', serif;
 }
-
 
 h1 {
     font-family: 'Cardo', serif;
-    font-size: 19px;
+    font-size: 20px;
     text-align: left;
 }
 
-p {
+#clickButton {
+    position: fixed;
+    bottom: 100px;
+    left: 5px;
     font-family: 'Cardo', serif;
-    text-align: left;
-}
-
-input {
-    font-family: 'Cardo', serif;
-    text-align: left;
-    float: left;
-
-}
-
-label {
-    font-family: 'Cardo', serif;
-    float: left;
-}
-
-div {
-    font-family: 'Cardo', serif;
-    float: left;
-}
-
-button {
-    font-family: 'Cardo', serif;
-    float: left;
-
 }

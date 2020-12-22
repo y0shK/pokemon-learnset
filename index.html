@@ -20,7 +20,7 @@
 
     <h1> Pokémon Learnsets by Generation </h1>
 
-    <p> What Pokémon do you want the learnset for? </p>
+    <p id="pokemonQuery"> What Pokémon do you want the learnset for? </p>
 
     <!-- make sure that there is some pokemon entered, because it's necessary for the app functionality-->
     <!-- ask if the user cares about a specific generation
@@ -29,8 +29,7 @@
 
     <input type="text" id="pokemon" onkeyup="verifyPokemon()"> <!-- input pokemon's name -->
 
-    <br>
-    <p id="userPrompt"> <br> </p>
+    <p id="userPrompt"> </p>
 
     <!--execute prompt for better input
         if the box is typed in but left blank, then prompt the user
@@ -55,13 +54,11 @@
         the name needs to be mutually exclusive so that the radio buttons are mutually exclusive
          https://stackoverflow.com/questions/3216512/how-can-i-create-mutually-exclusive-radio-buttons-with-different-names
          -->
-    <p>Pokédex entry or specific generation learnset?</p>
+    <p id="pokedexPrompt">Pokédex entry or specific generation learnset?</p>
     <input type="radio" name="functionality" id="pokedex">
-    <label for="pokedex">Pokédex entry</label>
+    <label for="pokedex" id="pokedexLabel">Pokédex entry</label>
     <input type="radio" name="functionality" id="learnset">
-    <label for="learnset">specific learnset</label>
-
-    <br><br>
+    <label for="learnset" id="learnsetLabel">specific learnset</label>
 
     <!-- if pokedex indicated, simply redirect to veekun/marriland
         ask what generation only if it's indicated
@@ -72,17 +69,17 @@
         do so with a text box that appears only when the generation radio button is checked
          https://stackoverflow.com/questions/35202952/text-box-to-appear-when-a-radio-button-is-selected -->
     <div id="generation_prompt">
-        <p>Which generation?</p>
-        <input type="text" id="generation">
+        <p id="generation_p">Which generation?</p>
+        <input type="text" id="generation" size=15>
     </div>
 
     <div id="dex_prompt">
-        <p>National or Galar Pokédex?</p>
+        <p id="dex_p">National or Galar Pokédex?</p>
         <input type="radio" name="dexChoice" id="national">
-        <label for="national">National</label><br>
+        <label for="national">National</label>
 
         <input type="radio" name="dexChoice" id="galar">
-        <label for="galar">Galar</label><br>
+        <label for="galar">Galar</label>
 
     </div>
 
@@ -162,8 +159,7 @@
         });
     </script>
 
-    <br><br><br><br><br><br>
-    <button onclick=redirectPage()> Get Pokémon info </button>
+    <button id="clickButton" onclick=redirectPage()> Get Pokémon info </button>
 
     <p id="reminder"></p>
 
