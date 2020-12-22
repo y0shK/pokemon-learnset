@@ -22,6 +22,8 @@
 }
 
 body {
+    margin-top: 32px;
+    margin-bottom: 32px;
     background-image: url(pikachu.jpg);
     background-size: cover;
     background-position: center;
@@ -30,8 +32,8 @@ body {
 
 h1 {
     font-family: 'Cardo', serif;
-    font-size: 36px;
-    text-align: center;
+    font-size: 19px;
+    text-align: left;
 }
 
 p {

@@ -14,13 +14,13 @@
 
     </head>
 
-    <title> Pokemon Learnset Resource </title>
+    <title> Pokémon Learnset Resource </title>
 
     <body>
 
-    <h1> Pokemon Learnsets by Generation </h1>
+    <h1> Pokémon Learnsets by Generation </h1>
 
-    <p> What Pokemon do you want the learnset for? </p>
+    <p> What Pokémon do you want the learnset for? </p>
 
     <!-- make sure that there is some pokemon entered, because it's necessary for the app functionality-->
     <!-- ask if the user cares about a specific generation
@@ -55,9 +55,9 @@
         the name needs to be mutually exclusive so that the radio buttons are mutually exclusive
          https://stackoverflow.com/questions/3216512/how-can-i-create-mutually-exclusive-radio-buttons-with-different-names
          -->
-    <p>Pokedex entry or specific generation learnset?</p>
+    <p>Pokédex entry or specific generation learnset?</p>
     <input type="radio" name="functionality" id="pokedex">
-    <label for="pokedex">Pokedex entry</label>
+    <label for="pokedex">Pokédex entry</label>
     <input type="radio" name="functionality" id="learnset">
     <label for="learnset">specific learnset</label>
 
@@ -77,7 +77,7 @@
     </div>
 
     <div id="dex_prompt">
-        <p>National or Galar Pokedex?</p>
+        <p>National or Galar Pokédex?</p>
         <input type="radio" name="dexChoice" id="national">
         <label for="national">National</label><br>
 
@@ -163,7 +163,7 @@
     </script>
 
     <br><br><br><br><br><br>
-    <button onclick=redirectPage()> Get Pokemon info </button>
+    <button onclick=redirectPage()> Get Pokémon info </button>
 
     <p id="reminder"></p>
 
@@ -281,7 +281,7 @@
             }
             // pokemon is not a string or generation is not a number or both - wait for proper input
             else {
-                document.getElementById("reminder").textContent = "Please enter either a Pokemon or generation as a number or Roman numeral!";
+                document.getElementById("reminder").textContent = "Please enter either a Pokémon or generation as a number or Roman numeral!";
             }
         }
 
