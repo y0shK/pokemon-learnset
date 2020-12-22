@@ -16,8 +16,13 @@
     display: block;
 }
 
+#attribution {
+    position: fixed;
+    bottom: 0;
+}
+
 body {
-    background-image: url(images/pokemon/mudkip.jpg);
+    background-image: url(pikachu.jpg);
     background-size: cover;
     background-position: center;
 }
@@ -56,4 +61,3 @@ button {
     float: left;
 
 }
-
