@@ -38,7 +38,7 @@
 
 #generation{
     font-family: 'Cardo', serif;
-    size: "6";
+    width: 125px;
 }
 
 #learnset {
@@ -95,6 +95,7 @@ body {
     width: 216px;
     height: 384px;
     font-family: 'Cardo', serif;
+    background-repeat: no-repeat;
 }
 
 h1 {
