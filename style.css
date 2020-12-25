@@ -95,7 +95,6 @@ body {
     width: 216px;
     height: 384px;
     font-family: 'Cardo', serif;
-    background-repeat: no-repeat;
 }
 
 h1 {
@@ -109,4 +108,5 @@ h1 {
     bottom: 100px;
     left: 5px;
     font-family: 'Cardo', serif;
+    padding: 9px 3px;
 }
