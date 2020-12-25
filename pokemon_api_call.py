@@ -40,19 +40,80 @@ import json
 #print(torterra_json['moves'])
 turtwig_moves = turtwig_json['moves']
 print(turtwig_moves)
-print(len(turtwig_moves)) # 69
+print(len(turtwig_moves)) # 69 - goes through 0 to 68
 
-def print_move_dict(moves):
+def print_move_dict(moves, genInput='ultra-sun-ultra-moon'): # default most recent
+    # the first gen the pokemon appears in is the first version group
+    # turtwig - dp, pt, hg/ss, bw, b2w2, ...
+    # to find which learnset, we need to change the version group
+    # the key is the second numerical index
+
+    # find a way to ask what generation is desired
+    # convert that into a number
+    # and then put it into json
+    #
+
     learnset_dict = {}
+    learnset_list = []
     length_of_moves_json = len(moves)
 
+    # ask which generation
+    # some pokemon have different learnsets in the same generation (e.g. riolu in bw/b2w2)
+    # for html, use radio buttons, & for android, use touch screen
+    # python test can use text input - for the sake of exploration, use foolproof input, then figure out error checking
+
+    """
+    1 - red-blue
+    1 - yellow
+    2 - gold-silver
+    2 - crystal
+    3 - ruby-sapphire
+    3 - emerald
+    4 - diamond-pearl
+    4 - platinum
+    4 - heartgold-soulsilver
+    5 - black-white
+    5 - black-2-white-2
+    6 - x-y
+    6 - omega-ruby-alpha-sapphire
+    7 - sun-moon
+    7 - ultra-sun-ultra-moon
+    """
+
+    all_generations = ['red-blue', 'yellow', 'gold-silver', 'crystal', 'ruby-sapphire',
+                       'emerald', 'diamond-pearl', 'platinum', 'heartgold-soulsilver',
+                       'black-white', 'black-2-white-2', 'x-y', 'omega-ruby-alpha-sapphire',
+                       'sun-moon', 'ultra-sun-ultra-moon']
+
+    #if genInput ==
+
     for i in range(0, length_of_moves_json):
-        if moves[i]['version_group_details'][0]['move_learn_method']['name'] == "level-up":
-            learnset_dict[moves[i]['move']['name']] = moves[i]['version_group_details'][0]['level_learned_at']
+        len_group = len(moves[i]['version_group_details'])
+        for j in range(0, len_group):
+
+            move_learn_method = moves[i]['version_group_details'][j]['move_learn_method']['name']
+            move_name = moves[i]['move']['name']
+            level_learned = moves[i]['version_group_details'][j]['level_learned_at']
+            gen_json = moves[i]['version_group_details'][j]['version_group']['name']
+
+        if move_learn_method == "level-up":
+            learnset_dict[move_name] = [level_learned, gen_json]
+            learnset_list.append(learnset_dict)
+            #learnset_dict[move_name] = level_learned
+
+    import operator
 
     # https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value
+    #learnset_dict = dict(sorted(learnset_dict.items(), key=lambda item: item[1][0]))
     learnset_dict = dict(sorted(learnset_dict.items(), key=lambda item: item[1]))
-    print(learnset_dict)
+    print("gen: ", gen_json, end=' ')
+    #print(learnset_list)
+
+    #learnset_list = sorted(learnset_list, key=lambda x: x[0][level_learned])
+    #learnset_list.sort(key=operator.itemgetter(level_learned))
+    print(learnset_list)
+
+    #print(learnset_dict)
 
 
 for i in range(0, 69):
@@ -92,3 +153,24 @@ print_move_dict(riolu_moves) # this will give you the first gen riolu appears in
 oshawott_moves = oshawott.json()['moves']
 print_move_dict(oshawott_moves) # gen 5, oshawott premieres in gen 4
 
+# start exploring versionGroupDetails
+# end goal is to access any pokemon learnset in any valid generation
+
+# all gen's are x-y - what about anything post x-y?
+
+# gen 7
+litten = requests.get("https://pokeapi.co/api/v2/pokemon/litten/") # usum
+print(litten.from_cache)
+litten_moves = litten.json()['moves']
+
+print_move_dict(litten_moves)
+
+# into method, also provide what gen should be queried
+# gen 1
+charmander = requests.get("https://pokeapi.co/api/v2/pokemon/charmander")
+print(charmander.from_cache)
+
+charmander_moves = charmander.json()['moves']
+print(charmander_moves)
+
+print_move_dict(charmander_moves)
