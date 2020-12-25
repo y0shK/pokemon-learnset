@@ -174,3 +174,65 @@ charmander_moves = charmander.json()['moves']
 print(charmander_moves)
 
 print_move_dict(charmander_moves)
+
+# examine pokemon natures
+
+docile_nature = requests.get("https://pokeapi.co/api/v2/nature/docile")
+print(docile_nature.from_cache)
+
+docile_nature_json = docile_nature.json()
+print(docile_nature_json)
+
+print(docile_nature_json['names'][5]['name']) # if last index, accesses english name
+
+"""
+print(lonely_nature_json['increased_stat']['name'])
+print(lonely_nature_json['pokeathlon_stat_changes'][0]['max_change'])
+
+print(lonely_nature_json['pokeathlon_stat_changes'][0]['pokeathlon_stat']['name'])
+"""
+
+# no need for error checking - just for exploration
+
+def get_pokemon_nature_details(nature_to_concat):
+    nature_to_concat = nature_to_concat.lower()
+
+    poke_nature = requests.get("https://pokeapi.co/api/v2/nature/" + nature_to_concat)
+    print('cache:', poke_nature.from_cache)
+    nature_json = poke_nature.json()
+
+    #for i in range(len())
+    nature_name = nature_json['names'][6]['name']
+
+    # take care of natures that are neutral (e.g. docile)
+    if not nature_json['increased_stat'] and not nature_json['decreased_stat']:
+        plus_stat = None
+        minus_stat = None
+    else:
+    # from nature, find the +10% stat, -10% stat, pokeathlon details
+        plus_stat = nature_json['increased_stat']['name']
+        minus_stat = nature_json['decreased_stat']['name']
+
+    pokeathlon_plus = nature_json['pokeathlon_stat_changes'][0]
+    pokeathlon_minus = nature_json['pokeathlon_stat_changes'][1]
+
+    pokeathlon_plus_tuple = (pokeathlon_plus['max_change'], pokeathlon_plus['pokeathlon_stat']['name'])
+    pokeathlon_minus_tuple = (pokeathlon_minus['max_change'], pokeathlon_minus['pokeathlon_stat']['name'])
+
+    # if neutral nature, just print out pokeathlon
+    # else, also print out stat changes
+
+    print('\n')
+    print(nature_name)
+    if not nature_json['increased_stat'] and not nature_json['decreased_stat']:
+        print(pokeathlon_plus_tuple)
+        print(pokeathlon_minus_tuple)
+    else:
+        print(plus_stat, pokeathlon_plus_tuple)
+        print(minus_stat, pokeathlon_minus_tuple)
+    print('\n')
+
+get_pokemon_nature_details("lonely")
+get_pokemon_nature_details("adamant")
+get_pokemon_nature_details("hasty")
+get_pokemon_nature_details("docile")
