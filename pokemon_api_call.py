@@ -236,3 +236,28 @@ get_pokemon_nature_details("lonely")
 get_pokemon_nature_details("adamant")
 get_pokemon_nature_details("hasty")
 get_pokemon_nature_details("docile")
+
+# berries
+persim_berry = requests.get("https://pokeapi.co/api/v2/item/persim-berry")
+print(persim_berry.from_cache)
+
+persim_berry_json = persim_berry.json()
+print(persim_berry_json)
+print(persim_berry_json['name'])
+print(persim_berry_json['effect_entries'][0]['effect'])
+
+# similarly, no error checking - just for exploration
+def get_berry_info(berry_name):
+    berry = requests.get("https://pokeapi.co/api/v2/item/" + berry_name.lower() + "-berry")
+    print('\nberry cache:', berry.from_cache)
+
+    berry_json = berry.json()
+    berry_name = berry_json['name']
+    berry_effect = berry_json['effect_entries'][0]['effect']
+
+    print(berry_name)
+    print(berry_effect)
+
+get_berry_info("nanab")
+get_berry_info("persim")
+get_berry_info("oran")
