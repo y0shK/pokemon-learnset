@@ -2,6 +2,7 @@
     display: none;
     float: left;
     font-family: 'Cardo', serif;
+    margin-top: 2em;
 }
 
 #learnset:checked ~ #generation_prompt {
@@ -14,6 +15,7 @@
     display: none;
     float: left;
     font-family: 'Cardo', serif;
+    margin-top: 2em;
 }
 
 #pokedex:checked ~ #dex_prompt {
@@ -65,8 +67,6 @@
     font-family: 'Cardo', serif;
 }
 
-
-
 #attribution {
     position: fixed;
     bottom: 0;
@@ -87,13 +87,9 @@
 
 body {
     margin-top: 2em;
-    margin-bottom: 2em;
+    margin-bottom: 3em;
     margin-left: 0.5em;
-    background-image: url(pikachu.jpg);
-    background-size: cover;
-    background-position: left;
-    width: 216px;
-    height: 384px;
+    background-color: gold;
     font-family: 'Cardo', serif;
 }
 
@@ -108,5 +104,8 @@ h1 {
     bottom: 100px;
     left: 5px;
     font-family: 'Cardo', serif;
-    padding: 9px 3px;
+}
+
+#pokedexPrompt {
+    margin-top: 1em;
 }
